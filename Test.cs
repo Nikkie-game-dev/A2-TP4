@@ -1,5 +1,6 @@
 using Godot;
-using System;
+
+namespace a2tp4;
 
 public partial class Test : Control
 {
