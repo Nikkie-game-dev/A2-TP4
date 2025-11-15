@@ -7,6 +7,7 @@ public class GraphMethods
 {
     /// <summary>
     /// Determines whether all elements of a sequence satisfy a condition.
+    /// f(n) = O(n) as worst case
     /// </summary>
     /// <typeparam name="TSource"></typeparam>
     /// <param name="source"></param>
@@ -27,6 +28,7 @@ public class GraphMethods
 
     /// <summary>
     /// Determines whether any element of a sequence satisfies a condition.
+    /// f(n) = O(n) as worst case
     /// </summary>
     /// <typeparam name="TSource"></typeparam>
     /// <param name="source"></param>
@@ -47,6 +49,7 @@ public class GraphMethods
 
     /// <summary>
     /// Determines whether a sequence contains a specified element by using the default equality comparer.
+    /// f(n) = O(n) as worst case
     /// </summary>
     /// <typeparam name="TSource"></typeparam>
     /// <param name="source"></param>
@@ -67,6 +70,7 @@ public class GraphMethods
 
     /// <summary>
     /// Determines whether a sequence contains a specified element by using a specified IEqualityComparer<T>.
+    /// f(n) = O(n) as worst case
     /// </summary>
     /// <typeparam name="TSource"></typeparam>
     /// <param name="source"></param>
@@ -88,6 +92,8 @@ public class GraphMethods
 
     /// <summary>
     /// Returns distinct elements from a sequence by using the default equality comparer to compare values.
+    /// f(n) = O(n^2) as worst case. A source said that this is O(n) but it clearly uses two nested loops, one
+    /// with the add() and the foreach loop
     /// </summary>
     /// <typeparam name="TSource"></typeparam>
     /// <param name="source"></param>
@@ -108,6 +114,7 @@ public class GraphMethods
 
     /// <summary>
     /// Returns distinct elements from a sequence by using a specified IEqualityComparer<T> to compare values.
+    /// f(n) = O(n^2) as worst case
     /// </summary>
     /// <typeparam name="TSource"></typeparam>
     /// <param name="source"></param>
@@ -128,6 +135,7 @@ public class GraphMethods
 
     /// <summary>
     /// Returns the element at a specified index in a sequence.
+    /// f(n) = O(1) as worst case
     /// </summary>
     /// <typeparam name="TSource"></typeparam>
     /// <param name="source"></param>
@@ -135,23 +143,23 @@ public class GraphMethods
     /// <returns></returns>
     public static TSource ElementAt<TSource>(IEnumerable<TSource> source, int index)
     {
-        var enumerator = source.GetEnumerator();
-        TSource result;
-
-        for (var i = 0; i < index; i++)
+        var count = 0;
+        foreach (var element in source)
         {
-            enumerator.MoveNext();
+            if (count == index)
+            {
+                return element;
+            }
+
+            count++;
         }
 
-
-        result = enumerator.Current;
-        enumerator.Dispose();
-
-        return result;
+        return default;
     }
 
     /// <summary>
     /// Produces the set difference of two sequences by using the default equality comparer to compare values.
+    /// f(n) = O(n^2) as worst case
     /// </summary>
     /// <typeparam name="TSource"></typeparam>
     /// <param name="source1"></param>
@@ -172,6 +180,7 @@ public class GraphMethods
 
     /// <summary>
     /// Produces the set difference of two sequences by using the specified IEqualityComparer<T> to compare values.
+    /// f(n) = O(n^2) as worst case
     /// </summary>
     /// <typeparam name="TSource"></typeparam>
     /// <param name="source1"></param>
@@ -194,6 +203,7 @@ public class GraphMethods
 
     /// <summary>
     /// Returns the first element in a sequence that satisfies a specified condition.
+    /// f(n) = O(n) as worst case
     /// </summary>
     /// <typeparam name="TSource"></typeparam>
     /// <param name="source"></param>
@@ -214,6 +224,7 @@ public class GraphMethods
 
     /// <summary>
     /// Returns the last element of a sequence that satisfies a specified condition.
+    /// f(n) = O(n) as worst case
     /// </summary>
     /// <typeparam name="TSource"></typeparam>
     /// <param name="source"></param>
@@ -236,6 +247,7 @@ public class GraphMethods
 
     /// <summary>
     /// Produces the set intersection of two sequences by using the default equality comparer to compare values.
+    /// f(n) = O(n^2) as worst case
     /// </summary>
     /// <typeparam name="TSource"></typeparam>
     /// <param name="source1"></param>
@@ -256,6 +268,7 @@ public class GraphMethods
 
     /// <summary>
     /// Produces the set intersection of two sequences by using the specified IEqualityComparer<T> to compare values.
+    /// f(n) = O(n^2) as worst case
     /// </summary>
     /// <typeparam name="TSource"></typeparam>
     /// <param name="source1"></param>
@@ -278,6 +291,7 @@ public class GraphMethods
 
     /// <summary>
     /// Returns a number that represents how many elements in the specified sequence satisfy a condition.
+    /// f(n) = O(n^2) as worst case
     /// </summary>
     /// <typeparam name="TSource"></typeparam>
     /// <param name="source"></param>
@@ -297,6 +311,7 @@ public class GraphMethods
 
     /// <summary>
     /// Determines whether two sequences are equal by comparing their elements by using a specified IEqualityComparer<T>.
+    /// f(n) = O(n^2) as worst case
     /// </summary>
     /// <typeparam name="TSource"></typeparam>
     /// <param name="source1"></param>
@@ -321,6 +336,7 @@ public class GraphMethods
 
     /// <summary>
     /// Returns the only element of a sequence that satisfies a specified condition, and throws an exception if more than one such element exists.
+    /// f(n) = O(n^2) as worst case
     /// </summary>
     /// <typeparam name="TSource"></typeparam>
     /// <param name="source"></param>
@@ -352,6 +368,7 @@ public class GraphMethods
 
     /// <summary>
     /// Bypasses elements in a sequence as long as a specified condition is true and then returns the remaining elements.
+    /// f(n) = O(n) as worst case
     /// </summary>
     /// <typeparam name="TSource"></typeparam>
     /// <param name="source"></param>
@@ -370,6 +387,7 @@ public class GraphMethods
 
     /// <summary>
     /// Produces the set union of two sequences by using the default equality comparer.
+    /// f(n) = O(n^2) as worst case
     /// </summary>
     /// <typeparam name="TSource"></typeparam>
     /// <param name="source1"></param>
@@ -377,11 +395,28 @@ public class GraphMethods
     /// <returns></returns>
     public static IEnumerable<TSource> Union<TSource>(IEnumerable<TSource> source1, IEnumerable<TSource> source2)
     {
-        throw new NotImplementedException();
+        var elements = new HashSet<TSource>();
+
+        foreach (var element in source1)
+        {
+            if (elements.Add(element))
+            {
+                yield return element;
+            }
+        }
+
+        foreach (var element in source2)
+        {
+            if (elements.Add(element))
+            {
+                yield return element;
+            }
+        }
     }
 
     /// <summary>
     /// Produces the set union of two sequences by using a specified IEqualityComparer<T>.
+    /// f(n) = O(n^2) as worst case
     /// </summary>
     /// <typeparam name="TSource"></typeparam>
     /// <param name="source1"></param>
@@ -391,11 +426,28 @@ public class GraphMethods
     public static IEnumerable<TSource> Union<TSource>(IEnumerable<TSource> source1, IEnumerable<TSource> source2,
         IEqualityComparer<TSource> comparer)
     {
-        throw new NotImplementedException();
-    }
+
+        var elements = new HashSet<TSource>(comparer);
+
+        foreach (var element in source1)
+        {
+            if (elements.Add(element))
+            {
+                yield return element;
+            }
+        }
+
+        foreach (var element in source2)
+        {
+            if (elements.Add(element))
+            {
+                yield return element;
+            }
+        }    }
 
     /// <summary>
     /// Filters a sequence of values based on a predicate. Each element's index is used in the logic of the predicate function.
+    /// f(n) = O(n^2) as worst case
     /// </summary>
     /// <typeparam name="TSource"></typeparam>
     /// <param name="source"></param>
@@ -403,6 +455,13 @@ public class GraphMethods
     /// <returns></returns>
     public static IEnumerable<TSource> Where<TSource>(IEnumerable<TSource> source, Func<TSource, bool> predicate)
     {
-        throw new NotImplementedException();
+        //var count = 0;
+        foreach (var element in source)
+        {
+            if (predicate(element))
+            {
+                yield return element;
+            }
+        }
     }
 }
